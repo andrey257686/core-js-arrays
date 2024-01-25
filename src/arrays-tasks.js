@@ -410,8 +410,9 @@ function generateOdds(len) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  return indices.reduce((acc, el) => acc[el], arr);
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -577,8 +578,12 @@ function findLongestIncreasingSubsequence(nums) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.reduce((acc, el, index) => {
+    acc.push(...new Array(index + 1).fill(el));
+    return acc;
+  }, []);
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -594,8 +599,16 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  if (n > 0) {
+    const leftPart = arr.slice(-n);
+    const rightPart = arr.slice(0, -n);
+    return leftPart.concat(rightPart);
+  }
+  const rightPart = arr.slice(0, -n);
+  const leftPart = arr.slice(-n);
+  return leftPart.concat(rightPart);
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -611,8 +624,21 @@ function shiftArray(/* arr, n */) {
  *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
  *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digits = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
+  return arr.sort((a, b) => digits[a] - digits[b]);
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -634,8 +660,17 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const center = Math.floor(arr.length / 2);
+  const head = arr.slice(0, center);
+  let tail = 0;
+  if (arr.length % 2 !== 0) {
+    tail = arr.slice(center + 1);
+    return [...tail, arr[center], ...head];
+  }
+  tail = arr.slice(center);
+  return [...tail, ...head];
+  // throw new Error('Not implemented');
 }
 
 module.exports = {
